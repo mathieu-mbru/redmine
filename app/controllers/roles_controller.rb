@@ -123,6 +123,15 @@ class RolesController < ApplicationController
     @roles = Role.where(:id => params[:permissions].keys)
     @roles.each do |role|
       role.permissions = params[:permissions][role.id.to_s]
+      # update permissions of trackers
+      params[:permissions_tracker_ids][role.id.to_s].each do |permission|
+        role.set_permission_trackers(permission.first, permission.second)
+      end
+
+      params[:permissions_all_trackers][role.id.to_s].each do |permission|
+        role.set_permission_trackers(permission.first, :all) if permission.second == "1"
+      end
+
       role.save
     end
     flash[:notice] = l(:notice_successful_update)
