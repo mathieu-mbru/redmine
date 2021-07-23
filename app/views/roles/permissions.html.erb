@@ -31,7 +31,7 @@
 <table class="list permissions">
   <thead>
       <tr>
-      <th style="width:680px;"><%=l(:label_general_data)%></th>
+      <th><%=l(:label_general_data)%></th>
       <% @roles.each do |role| %>
       <th>
           <%= content_tag(role.builtin? ? 'em' : 'span', role.name) %>
@@ -50,7 +50,7 @@
       </td>
       <% @roles.each do |role| %>
         <td title="<%= l(:field_assignable) + " (#{role.name})" %>">
-          <%= check_box_tag "assignable[#{role.id}][]", 1, (role.assignable), :id => nil, :class => "role-#{role.id}" %>
+          <%= check_box_tag "assignable[#{role.id}][]", 1, (role.assignable), :id => nil %>
         </td>
       <% end %>
     </tr>
