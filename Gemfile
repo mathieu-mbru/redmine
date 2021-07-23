@@ -80,6 +80,7 @@ end
 
 group :development do
   gem "yard"
+  gem 'pry-byebug'
 end
 
 group :test do
@@ -96,6 +97,7 @@ group :test do
   gem 'rubocop', '~> 1.12.0'
   gem 'rubocop-performance', '~> 1.10.1'
   gem 'rubocop-rails', '~> 2.9.0'
+  gem 'pry-byebug'
 end
 
 local_gemfile = File.join(File.dirname(__FILE__), "Gemfile.local")

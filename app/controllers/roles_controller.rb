@@ -123,6 +123,8 @@ class RolesController < ApplicationController
     @roles = Role.where(:id => params[:permissions].keys)
     @roles.each do |role|
       role.permissions = params[:permissions][role.id.to_s]
+      role.assignable =  params[:assignable][role.id.to_s].present? ? true : false
+      role.issues_visibility = params[:issues_visibility][role.id.to_s]
       # update permissions of trackers
       params[:permissions_tracker_ids][role.id.to_s].each do |permission|
         role.set_permission_trackers(permission.first, permission.second)

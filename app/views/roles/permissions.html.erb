@@ -29,6 +29,104 @@
 <% end %>
 <div class="autoscroll">
 <table class="list permissions">
+  <thead>
+      <tr>
+      <th style="width:680px;"><%=l(:label_general_data)%></th>
+      <% @roles.each do |role| %>
+      <th>
+          <%= content_tag(role.builtin? ? 'em' : 'span', role.name) %>
+      </th>
+      <% end %>
+      </tr>
+  </thead>
+  <tbody>
+    <tr class="assignable">
+      <td class="name">
+          <%= link_to_function('',
+                               "toggleCheckboxesBySelector('.assignable input')",
+                               :title => "#{l(:button_check_all)}/#{l(:button_uncheck_all)}",
+                               :class => 'icon-only icon-checked') %>
+         <%=l(:field_assignable)%>
+      </td>
+      <% @roles.each do |role| %>
+        <td title="<%= l(:field_assignable) + " (#{role.name})" %>">
+          <%= check_box_tag "assignable[#{role.id}][]", 1, (role.assignable), :id => nil, :class => "role-#{role.id}" %>
+        </td>
+      <% end %>
+    </tr>
+    <tr class="group open">
+      <td>
+        <span class="expander icon icon-expended" onclick="toggleRowGroup(this);">&nbsp;</span>
+        <%=l(:field_issues_visibility)%>
+      </td>
+      <% @roles.each do |role| %>
+      <td class="role"></td>
+      <% end %>
+    </tr>
+    <tr class="visibility_all">
+      <td class="name">
+        <%= link_to_function('',
+                             "toggleCheckboxesBySelector('.visibility_all input')",
+                             :title => "#{l(:button_check_all)}/#{l(:button_uncheck_all)}",
+                             :class => 'icon-only icon-checked') %>
+        <%=l(:label_issues_visibility_all)%>
+      </td>
+      <% @roles.each do |role| %>
+      <td>
+        <% unless role.anonymous? %>
+          <label class="block">
+            <%= radio_button_tag "issues_visibility[#{role.id}]", "all", role.issues_visibility == "all"
+                   %>
+          </label>
+        <% end %>
+      </td>
+      <% end %>
+    </tr>
+    <tr class="visibility_public">
+      <td class="name">
+        <%= link_to_function('',
+                             "toggleCheckboxesBySelector('.visibility_public input')",
+                             :title => "#{l(:button_check_all)}/#{l(:button_uncheck_all)}",
+                             :class => 'icon-only icon-checked') %>
+        <%=l(:label_issues_visibility_public)%>
+      </td>
+      <% @roles.each do |role| %>
+      <td>
+        <% unless role.anonymous? %>
+          <label class="block">
+            <%= radio_button_tag "issues_visibility[#{role.id}]", "default", role.issues_visibility == "default"
+                  %>
+
+          </label>
+        <% end %>
+      </td>
+      <% end %>
+    </tr>
+    <tr class="visibility_own">
+      <td class="name">
+        <%= link_to_function('',
+                             "toggleCheckboxesBySelector('.visibility_own input')",
+                             :title => "#{l(:button_check_all)}/#{l(:button_uncheck_all)}",
+                             :class => 'icon-only icon-checked') %>
+        <%=l(:label_issues_visibility_own)%>
+      </td>
+      <% @roles.each do |role| %>
+      <td>
+        <% unless role.anonymous? %>
+          <label class="block">
+            <%= radio_button_tag "issues_visibility[#{role.id}]", "own", role.issues_visibility == "own"
+                  %>
+
+          </label>
+        <% end %>
+      </td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="autoscroll">
+<table class="list permissions">
 <thead>
     <tr>
     <th><%=l(:label_permissions)%></th>
